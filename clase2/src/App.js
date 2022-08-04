@@ -8,7 +8,7 @@ function App() {
   return (
     <div>
       <h1> Mi primera app en React</h1>
-      <img src="https://definicion.de/wp-content/uploads/2009/12/paisaje-1.jpg" alt=""> </img>
+      <img src="https://definicion.de/wp-content/uploads/2009/12/paisaje-1.jpg" alt="" />
       <p> Mi nombre es {nombre}</p>
       <h2>Las últimas tres películas que vi son:</h2>
       <ul>
