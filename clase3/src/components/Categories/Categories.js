@@ -1,10 +1,10 @@
 import React from "react";
 
-function Categories({number}) { //Puedo hacer en vez de props, {nombre, avatar,rol} y aclaro que propiedades espera recibir//
+function Categories(props) { //Puedo hacer en vez de props, {nombre, avatar,rol} y aclaro que propiedades espera recibir//
     return (
         
             <article className="card">
-                <p>Category {number} </p>
+                <p>Category {props.numbers} </p>
             </article>
     );
 };

@@ -1,15 +1,27 @@
-import React from "react";
+import React, { Component } from "react";
 
-function Characters({character_name, description, image}) { //Puedo hacer en vez de props, {nombre, avatar,rol} y aclaro que propiedades espera recibir//
+class Characters extends Component { //Puedo hacer en vez de props, {nombre, avatar,rol} y aclaro que propiedades espera recibir//
     
-    return (
+    constructor(props){
+      super(props);
+
+      this.state = {
+        character_name: props.character_name,
+        description: props.description,
+        image: props.image
+      }
+    }
+
+    render(){
+      return (
         <div className="character-card">
-          <img src={image} alt={character_name} />
-          <h4>{character_name}</h4>
-          <p>{description}</p>
+          <img src={"../img/" + this.state.image} alt={this.state.character_name} />
+          <h4>{this.state.character_name}</h4>
+          <p>{this.state.description}</p>
           <a href="https://www.google.com.ar/?hl=es">Ver más</a>
-      </div>    
-    );
+      </div>
+      );
+    }
 };
 
 export default Characters;

@@ -6,13 +6,61 @@ import Characters from "./components/Characters/Characters";
 
 function App() {
 
+  let name = ['Admin', 'Pages', 'Charts', 'Tables'];
+  let cardinfo = [
+      {
+        name: 'Products in Database',
+        info: 135
+      },
+      {
+        name: 'Amount in Products',
+        info: '$645.634'
+      },
+      {
+        name: 'Users quantity',
+        info: 90
+      }
+    ];
+
+    let numbers = [1, 2, 3, 4, 5, 6];
+
+    let characterInfo = [
+      {
+        img: 'ahsoka.jpg',
+        name: 'Ashoka',
+        description: 'Character description Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis suscipit voluptatem corporis vitae, eius, alias, omnis exercitationem odit officia nemo molestiae.',
+        extra: 'StarWars',
+    }, 
+    {
+        img: 'anakin.jpg',
+        name: 'Anakin',
+        description: 'Character description Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis suscipit voluptatem corporis vitae, eius, alias, omnis exercitationem odit officia nemo molestiae.',
+        extra: 'StarWars',
+    },
+    {
+        img: 'batman.jpg',
+        name: 'Batman',
+        description: 'Character description Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis suscipit voluptatem corporis vitae, eius, alias, omnis exercitationem odit officia nemo molestiae.',
+        extra:'DC',
+    },
+      {
+        img: 'hulkSmall.jpg',
+        name: 'Hulk',
+        description: 'Character description Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis suscipit voluptatem corporis vitae, eius, alias, omnis exercitationem odit officia nemo molestiae.',
+        extra: 'Marvel',
+    },
+    {
+        img: 'kyloRen.jpg',
+        name: 'Kylo Ren',
+        description: 'Character description Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nobis suscipit voluptatem corporis vitae, eius, alias, omnis exercitationem odit officia nemo molestiae.',
+        extra: 'StarWars',
+    },       
+  ];
+
   return (
     <div>
       <nav>
-        <Menu name="ADMIN"/>
-        <Menu name="Pages"/>
-        <Menu name="Charts"/>
-        <Menu name="Tables"/>
+        <Menu name={name}/>
         <ul className="user">
                 <li>Walter White <img src="../img/user.jpg" alt=""/></li>
         </ul>
@@ -20,31 +68,17 @@ function App() {
 
       <h1>My App in React</h1>
       <section className="top-data">
-        <Cards cardname="Products in Database" info="135"/>
-        <Cards cardname="Amount in Products" info="$645.634"/>
-        <Cards cardname="Users quantity" info="90"/>
+        {cardinfo.map((information, i) => <Cards key={information + i}name={information.name} info={information.info}/>)}
       </section>
 
       <h2>Categories in database</h2>
       <section className="general-data">
-        <Categories number="1"/>
-        <Categories number="2"/>
-        <Categories number="3"/>
-        <Categories number="4"/>
-        <Categories number="5"/>
-        <Categories number="6"/>
+        {numbers.map((number, i) => <Categories key={number +i }numbers={number}/>)}
       </section>
 
       <h2>Personajes de películas</h2>
       <section className="card-container">
-        <Characters character_name="Hulk" description="Superhero" image="../img/hulkSmall.jpg"/>
-        <Characters character_name="Batman" description="Superhero" image="../img/batman.jpg"/>
-        <Characters character_name="Captain America" description="Superhero" image="../img/capAmerica.jpg"/>
-        <Characters character_name="Kylo Ren" description="Superhero" image="../img/kyloren.jpg"/>
-        <Characters character_name="Obi Wan Kenobi" description="Superhero" image="../img/obiWan.jpg"/>
-        <Characters character_name="Superman" description="Superhero" image="../img/superman.jpg"/>
-        <Characters character_name="Yoda" description="Superhero" image="../img/yoda.jpg"/>
-        <Characters character_name="Doctor Strange" description="Superhero" image="../img/strange.jpg"/>
+        {characterInfo.map((character, i) => <Characters key={character + i}character_name={character.name} description={character.description} image={character.img} />)}
       </section>
 
 
