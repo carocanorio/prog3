@@ -16,7 +16,6 @@ class Characters extends Component{
         .then( response => response.json() )
         .then( data => {
             let charactersArray = data.results;
-            let moreCharacters = data.
 
             this.setState({
                 information: charactersArray
@@ -28,9 +27,21 @@ class Characters extends Component{
     }
 
     desplegar(){
-        this.setState(
-            {desplegado: true}
-        )
+        
+        fetch('https://rickandmortyapi.com/api/character/?page=3')
+        .then( response => response.json() )
+        .then( data => {
+            let moreCharacters = data.results;
+            moreCharacters.concat(this.state.information);
+
+            this.setState ({
+                
+                desplegado: true
+
+            })
+
+        })
+        .catch( error =>	console.log('El error fue: ' + error))
     }
 
     ocultar(){
@@ -56,7 +67,7 @@ class Characters extends Component{
                 </section>
                 {this.state.desplegado ? 
                 <div>
-                    <p>INFORMACION API</p>
+                    <p></p>
                     <p onClick={() => this.ocultar()}>Ver menos</p>
                 </div>
                 :
