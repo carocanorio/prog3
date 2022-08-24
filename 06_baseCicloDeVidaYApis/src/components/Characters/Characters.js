@@ -19,7 +19,7 @@ class Characters extends Component{
             let charactersArray = data.results;
 
             this.setState({
-                information: charactersArray
+                information: charactersArray,
             })
 
             
@@ -39,11 +39,6 @@ class Characters extends Component{
         .catch( error =>	console.log('El error fue: ' + error))
     }
 
-    ocultar(){
-        this.setState(
-            {desplegado: false}
-        )
-    }
 
     render(){
         return(
@@ -53,16 +48,17 @@ class Characters extends Component{
                         <h3>Cargando...</h3> :
                         <div>
                             {
-                                this.state.information.map((character, i) => <CharacterCard key={character.id + i} name={character.name} image={character.image} species={character.species} status={character.status} origin={character.origin}/>)
+                                this.state.information.map((character, i) => <CharacterCard key={character.id + i} name={character.name} image={character.image} species={character.species} status={character.status} origin={character.origin} />)
                             }
                         </div>
                     }
                 </section>
                 <button onClick={() => this.desplegar()}>Ver más personajes</button>
+
             </section>
             
         )        
     }
-}
 
+}
 export default Characters;
