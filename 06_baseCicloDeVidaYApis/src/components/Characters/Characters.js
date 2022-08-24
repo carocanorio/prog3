@@ -7,12 +7,13 @@ class Characters extends Component{
 
         this.state = {
             information: [],
-            desplegado: false
+            desplegado: false,
+            borrar: []
         }
     }
 
     componentDidMount(){
-        fetch('https://rickandmortyapi.com/api/character')
+        fetch('https://rickandmortyapi.com/api/character/?page=1')
         .then( response => response.json() )
         .then( data => {
             let charactersArray = data.results;
@@ -28,19 +29,13 @@ class Characters extends Component{
 
     desplegar(){
         
-        fetch('https://rickandmortyapi.com/api/character/?page=3')
+        fetch('https://rickandmortyapi.com/api/character/?page=2')
         .then( response => response.json() )
-        .then( data => {
-            let moreCharacters = data.results;
-            moreCharacters.concat(this.state.information);
-
-            this.setState ({
-                
-                desplegado: true
-
-            })
-
-        })
+        .then( data => this.setState(
+            {
+                information: data.results.concat(this.state.information)
+            }
+        ))
         .catch( error =>	console.log('El error fue: ' + error))
     }
 
@@ -54,28 +49,16 @@ class Characters extends Component{
         return(
             <section>
                 <section className='cardContainer'>
-                {this.state.information.length === 0 ? 
-                    <h3>Cargando...</h3> :
-                    <div>
-                        {
-                            this.state.information.map((character, i) => {  
-                                return <CharacterCard key={character.id + i} name={character.name} image={character.image} species={character.species} status={character.status} origin={character.origin}/>
-                            })
-                        }
-                    </div>
-                }
+                    {this.state.information.length === 0 ? 
+                        <h3>Cargando...</h3> :
+                        <div>
+                            {
+                                this.state.information.map((character, i) => <CharacterCard key={character.id + i} name={character.name} image={character.image} species={character.species} status={character.status} origin={character.origin}/>)
+                            }
+                        </div>
+                    }
                 </section>
-                {this.state.desplegado ? 
-                <div>
-                    <p></p>
-                    <p onClick={() => this.ocultar()}>Ver menos</p>
-                </div>
-                :
-                <div>
-                    <button onClick={() => this.desplegar()}>More characters</button>
-                </div>
-                }
-
+                <button onClick={() => this.desplegar()}>Ver más personajes</button>
             </section>
             
         )        
