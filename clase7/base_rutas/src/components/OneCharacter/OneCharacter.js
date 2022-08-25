@@ -4,17 +4,17 @@ class OneCharacter extends Component{
     constructor(props){
         super(props)
         this.state={
-           information: [],
+           information: {},
+           id: props.match.params.id
 
         }
     };
-
 
     componentDidMount(){
         fetch(`https://rickandmortyapi.com/api/character/${this.state.id}`)
         .then( response => response.json() )
         .then( oneCharacter => this.setState({
-            information: oneCharacter.results
+            information: oneCharacter.results.find(onePerson => onePerson.id)
         }) )
         .catch( error =>	console.log('El error fue: ' + error))
 
@@ -25,6 +25,7 @@ class OneCharacter extends Component{
         return(
             <section>
                 <p>Datos del personaje: {this.state.information.name}</p>
+                
             </section>
         )
     }

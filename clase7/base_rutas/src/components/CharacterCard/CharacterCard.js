@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './CharacterCard.css';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 class CharacterCard extends Component{
     constructor(props){
