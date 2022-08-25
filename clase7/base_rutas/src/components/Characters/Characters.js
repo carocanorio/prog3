@@ -42,7 +42,6 @@ class Characters extends Component{
 
 
     render(){
-        console.log(this.state.personajes);
         return(
             <React.Fragment>
                 <button onClick={()=>this.traerMas()}> Traer más </button>
