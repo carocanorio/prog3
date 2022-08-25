@@ -28,6 +28,7 @@ class CharacterCard extends Component{
                 <h2>{this.props.name} </h2>
                 <p> {this.props.status}</p> 
                 <p> {this.props.species}</p> 
+                <p className='delete' onClick={()=>this.props.borrar(this.props.allData.id)}>Borrar</p>
                 {this.state.desplegado ? 
                     <section className='extra show'>
                         <p>Origen: {this.props.origin.name}</p> 
@@ -40,7 +41,6 @@ class CharacterCard extends Component{
                     </section>
                     </div>
                 }
-                <p className='delete'>Borrar</p>
             </article>
     
         )

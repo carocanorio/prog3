@@ -8,7 +8,7 @@ class Characters extends Component{
         this.state = {
             information: [],
             desplegado: false,
-            borrar: []
+            nextURL: ''
         }
     }
 
@@ -20,6 +20,7 @@ class Characters extends Component{
 
             this.setState({
                 information: charactersArray,
+                nextURL: data.info.next
             })
 
             
@@ -29,15 +30,24 @@ class Characters extends Component{
 
     desplegar(){
         
-        fetch('https://rickandmortyapi.com/api/character/?page=2')
+        fetch(this.state.nextURL)
         .then( response => response.json() )
         .then( data => this.setState(
             {
-                information: data.results.concat(this.state.information)
+                information: data.results.concat(this.state.information),
+                nextURL: data.info.next,
             }
         ))
         .catch( error =>	console.log('El error fue: ' + error))
     }
+
+    borrar(id){
+        let personajesFiltrados = this.state.information.filter(unPersonaje => unPersonaje.id !== id); //mira personaje por personaje,
+        //y la condicion a cumplir para quedarte con el elemento es que el id del perosnaje que estas mirando sea disnito al id del parametro. 
+        this.setState({
+         information: personajesFiltrados
+        })
+     }
 
 
     render(){
@@ -48,7 +58,7 @@ class Characters extends Component{
                         <h3>Cargando...</h3> :
                         <div>
                             {
-                                this.state.information.map((character, i) => <CharacterCard key={character.id + i} name={character.name} image={character.image} species={character.species} status={character.status} origin={character.origin} />)
+                                this.state.information.map((character, i) => <CharacterCard key={character.id + i} allData={character} name={character.name} image={character.image} species={character.species} status={character.status} origin={character.origin} borrar={(id)=>this.borrar(id)} />)
                             }
                         </div>
                     }
