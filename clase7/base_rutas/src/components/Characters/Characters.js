@@ -63,7 +63,6 @@ class Characters extends Component{
     };
 
     render(){
-        console.log(this.state.personajes);
         return(
             <React.Fragment>
                 <form onSubmit={(e) => this.preventSubmit(e)}>
