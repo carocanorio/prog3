@@ -7,7 +7,9 @@ class Characters extends Component{
         super()
         this.state={
             personajes:[], //aparecer personajes
-            nextUrl:''
+            nextUrl:'',
+            information: '',
+            filteredCharacters: ''
         }
     }
 
@@ -28,7 +30,7 @@ class Characters extends Component{
             .then( res => res.json())
             .then( data => this.setState({
                 personajes: data.results.concat(this.state.personajes),
-                nextUrl: data.info.next
+                nextUrl: data.info.next,
             }))
             .catch()
     }
@@ -40,11 +42,33 @@ class Characters extends Component{
        })
     }
 
+    preventSubmit(e){
+        e.preventDefault();
+    };
+    
+    saveChanges(e){
+        this.setState({
+            information: e.target.value,
+        },
+        () => console.log(this.state.information)
+        );
+    };
+    
+    filterCharacters(){
+        let characters = this.state.information.toLowerCase()
+
+        this.setState({
+            filteredCharacters: characters.filter((person) => person.includes())
+        })
+    };
 
     render(){
         console.log(this.state.personajes);
         return(
             <React.Fragment>
+                <form onSubmit={(e) => this.preventSubmit(e)}>
+                    <input type='text' onChange={(e) => this.saveChanges(e)} value={this.state.information} />
+                </form>
                 <button onClick={()=>this.traerMas()}> Traer más </button>
                 <section className='cardContainer'>
                     { 

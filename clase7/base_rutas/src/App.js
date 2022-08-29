@@ -19,6 +19,7 @@ function App() {
       <Navbar />
       <h1>My App in React</h1>
       <main>  
+        <Characters />
         <Switch>
           <Route path='/' exact={true} component={Home}/>
           <Route path='/aboutus' component={About}/>
