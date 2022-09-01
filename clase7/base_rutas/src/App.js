@@ -6,6 +6,7 @@ import Home from "./screens/Home/Home";
 import About from "./screens/About/About";
 import Characters from './components/Characters/Characters';
 import OneCharacter from "./components/OneCharacter/OneCharacter";
+import Favourites from "../src/screens/Favourites/Favourites"
 import NotFound from './screens/NotFound/NotFound';
 
 import { Route, Switch } from 'react-router-dom';
@@ -25,6 +26,7 @@ function App() {
           <Route path='/aboutus' component={About}/>
           <Route path='/characters' exact={true} component={Characters}/>
           <Route path='/characters/id/:id' component={OneCharacter}/>
+          <Route path='/favourites' component={Favourites}/>
           <Route path='' component={NotFound} />
         </Switch>     
       </main>

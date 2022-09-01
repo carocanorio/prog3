@@ -16,7 +16,7 @@ function Navbar(){
                 <li>
                     <Link to='/characters'>Rick & Morty</Link>
                 </li>
-                <li>Menú 3</li>
+                <li> <Link to='/favourites'>Favoritos</Link></li>
             </ul>
             <ul className="user">
                 <li>Nombre usuario <img src="/img/user.jpg" alt=""/></li>
