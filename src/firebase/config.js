@@ -1,4 +1,5 @@
-import {initializeApp} from 'firebase/app';
+import app from 'firebase/app';
+import firebase from 'firebase';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBf5SLLyHjCENLw2X0INqDfGhZ1hKeUxrQ",
@@ -9,10 +10,9 @@ const firebaseConfig = {
     appId: "1:314134271030:web:14074f7cb86042637e3497"
   };
 
-const app = initializeApp(firebaseConfig);
+app.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
+export const storage = app.storage();
+export const db = app.firestore()
 
-auth.createUserWithEmailAndPassword('caro@gmail.com', 'caro123');
-
-auth.signInWithEmailAndPassword('caro@gmail.com', 'caro123')

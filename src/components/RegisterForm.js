@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, TextInput, TouchableOpacity, View, StyleSheet} from 'react-native';
+import {Text, TextInput, TouchableOpacity, View, StyleSheet, Button} from 'react-native';
 import {auth} from '../firebase/config';
 
 const styles = StyleSheet.create({
@@ -44,27 +44,22 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
 })
-class LoginForm extends Component{
+class RegisterForm extends Component{
 
     constructor(){
         super();
         this.state ={
             email: '',
             password: '',
-            login: false,
+            registered: false,
             error: []
         }
     }
 
     onSubmit(){
 
-        auth.signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then(res => {
-            this.setState({login: true})
-            this.props.navigation.navigate('Home')
-        }
-
-        )
+        auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
+        .then(res => {this.setState({registered: true})})
         .catch(err => {this.setState({error: err.message})})
 
     }
@@ -72,7 +67,7 @@ class LoginForm extends Component{
     render(){
         return(
             <View> 
-                <Text style={styles.title}>Login</Text>
+                <Text style={styles.title}>Create your account</Text>
                 <TextInput style={styles.field} 
                 keyboardType='email-address'
                     placeholder='Write your email'
@@ -80,7 +75,7 @@ class LoginForm extends Component{
                     value={this.state.email} />
                 <TextInput style={styles.field} 
                     keyboardType='default'
-                    placeholder='Write your password'
+                    placeholder='Create a password'
                     secureTextEntry={true} 
                     onChangeText={ text => this.setState({password:text}) }
                     value={this.state.password}/> 
@@ -88,10 +83,14 @@ class LoginForm extends Component{
                     <Text style={styles.button}> Send </Text> 
                 </TouchableOpacity> 
                 <Text style={styles.error}>{this.state.error}</Text>
-
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')}>
-                    <Text style={styles.text}>Don't have an account? Create one!</Text>
+                    <Text style={styles.text}>Already have an account? Log in!</Text>
                 </TouchableOpacity>
+
+                <Button 
+                    title="Go back"
+                    onPress={() => this.props.navigation.goBack()}
+                />
             </View>
 
         )
@@ -99,4 +98,4 @@ class LoginForm extends Component{
 
 }
 
-export default LoginForm
+export default RegisterForm
