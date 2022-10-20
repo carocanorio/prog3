@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, TextInput, TouchableOpacity, View, StyleSheet, Button} from 'react-native';
-import {auth} from '../firebase/config';
+import {db,auth} from '../firebase/config';
 
 const styles = StyleSheet.create({
     field: {
@@ -51,6 +51,8 @@ class RegisterForm extends Component{
         this.state ={
             email: '',
             password: '',
+            age: '',
+            idNumber: '',
             registered: false,
             error: []
         }
@@ -59,7 +61,16 @@ class RegisterForm extends Component{
     onSubmit(){
 
         auth.createUserWithEmailAndPassword(this.state.email, this.state.password)
-        .then(res => {this.setState({registered: true})})
+        .then(res => {
+            this.setState({registered: true})
+            db.collection('userData').add({
+                owner: auth.currentUser.email,
+                createdAt: Date.now(),
+                age: this.state.age,
+                idNumber: this.state.idNumber,
+            })
+            .then(() => {this.props.navigation.navigate('Login')})
+        })
         .catch(err => {this.setState({error: err.message})})
 
     }
@@ -73,6 +84,16 @@ class RegisterForm extends Component{
                     placeholder='Write your email'
                     onChangeText={ text => this.setState({email:text}) }
                     value={this.state.email} />
+                <TextInput style={styles.field} 
+                    keyboardType='numeric'
+                    placeholder='Write your age'
+                    onChangeText={ text => this.setState({age:text}) }
+                    value={this.state.age} /> 
+                <TextInput style={styles.field} 
+                    keyboardType='numeric'
+                    placeholder='Write your id number'
+                    onChangeText={ text => this.setState({idNumber:text}) }
+                    value={this.state.idNumber} />    
                 <TextInput style={styles.field} 
                     keyboardType='default'
                     placeholder='Create a password'
