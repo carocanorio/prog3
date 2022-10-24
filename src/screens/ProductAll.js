@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, FlatList,  StyleSheet} from 'react-native';
 import Card from '../components/Card';
+import Posts from '../components/Posts';
+import {db} from '../firebase/config'
 
 const allProducts = [
     {
@@ -139,7 +141,7 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
         
-    }
+    },
 })
 
 class ProductAll extends Component{
@@ -147,24 +149,44 @@ class ProductAll extends Component{
     constructor(){
         super();
         this.state ={
-            allProducts: allProducts
+            allProducts: allProducts,
+            posts: ''
         }
     }
 
+    componentDidMount(){
+        db.collection('postsTest').onSnapshot(
+            docs => {
+                let posts = [];
+
+                docs.forEach( doc => {
+                    const data = doc.data();
+                    const id = doc.id;
+                    
+                    posts.push({
+                        data,
+                        id
+                    })
+                });
+
+                this.setState({
+                    posts: posts,
+                })
+            }
+        )       
+    }
+
     render(){
+        console.log(this.state.posts)
         return(
             <View style={styles.container}>
-                <Text style={styles.mainTitle}>All products</Text>
-                {
-                    this.state.allProducts.length === 0 ?
-                        <ActivityIndicator size='large' color='green'/>
-                        :
-                        <FlatList style={styles.flatlist}
-                            data={this.state.allProducts}
-                            keyExtractor={item => item.id.toString()}
-                            renderItem={({item}) => <Card item={item}/>}
-                        />
-                }
+                
+                <Text style={styles.mainTitle}>All posts</Text>
+                <FlatList style={styles.flatlist}
+                    data={this.state.posts}
+                    keyExtractor={item => item.id.toString()}
+                    renderItem={({item}) => <Posts item={item}/>}             
+                />
             </View>
         )
     }
